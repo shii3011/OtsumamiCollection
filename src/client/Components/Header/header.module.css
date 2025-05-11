@@ -1,0 +1,42 @@
+.header {
+  width:100%;
+  padding: 15px 0px 15px 0px;
+  background: linear-gradient(90deg, #ffcc66, #ff9966);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.headerWrapper {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-family: 'Noto Serif JP', serif;
+}
+
+.link {
+  text-decoration: none;
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  margin: 0 20px;
+  gap: 20px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navLink:hover {
+  color: #ff6600;
+}

@@ -1,0 +1,32 @@
+.HeroSection {
+  width: 100%;
+  height: 100vh; /* 画面の高さにフィット */
+  background-image: url('../../../images/HeroSection1.png'); /* 画像のパスを指定 */
+  background-size: cover;     /* 全体にカバーする */
+  background-position: center; /* 中央に配置 */
+  background-repeat: no-repeat; /* 繰り返さない */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; /* テキストがあれば色を白に */
+}
+
+.SearchButton {
+  margin-top: 500px;
+  padding: 20px 60px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  background: linear-gradient(90deg, #ffcc66, #ff9966);
+  border: none;
+  border-radius: 26px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.SearchButton:hover {
+  background: linear-gradient(90deg, #ffcc66, #ff9966);
+  transform: scale(1.05);
+}
+
