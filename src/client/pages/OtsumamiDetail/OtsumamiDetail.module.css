@@ -63,15 +63,3 @@
 .linkButton:hover {
   background-color: #e67e22;
 }
-
-.likes {
-  font-size: 1.1rem;
-  color: #e91e63;
-  font-weight: bold;
-  margin-top: 8px;
-  display: inline-block;
-  background-color: #fff0f6;
-  padding: 4px 12px;
-  border-radius: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
