@@ -18,7 +18,7 @@ const Main: React.FC = () => {
   useEffect(() => {
     const fetchOtsumami = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/Otsumamis');
+        const response = await fetch('https://otsumamicollection.onrender.com/api/Otsumamis');
   
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
