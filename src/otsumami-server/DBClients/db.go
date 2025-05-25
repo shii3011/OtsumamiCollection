@@ -1,9 +1,8 @@
-package main
+package DBClients
 
 import (
 	"database/sql"
-
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
 )
 
 func connectDB() (*sql.DB, error) {

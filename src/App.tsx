@@ -5,6 +5,7 @@ import Footer from './client/Components/Footer';
 import styles from './App.module.css'
 import HeroSection from './client/Components/HeroSection';
 import CategorySection from './client/Components/CategorySection';
+import RakutenSection from './client/Components/RakutenSection';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <HeroSection/>
         <CategorySection/>
         <Main/>
+        <RakutenSection/>
         <Footer/>
       </div>
     </BrowserRouter>
