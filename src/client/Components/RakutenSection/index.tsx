@@ -7,11 +7,13 @@ const RakutenSection: React.FC = () => {
   // Items[].Item 型だけを使いたい
   const [items, setItems] = useState<RakutenResponse['Items'][0]['Item'][]>([]);
   const [loading, setLoading] = useState(true);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchRakuten = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/Rakuten');
+        // const response = await fetch(`${baseUrl}/api/Rakuten`);
+        const response = await fetch(`${baseUrl}/api/ChatGPT`);
         const data: RakutenResponse = await response.json();
         const flatItems = data.Items.map(entry => entry.Item);
         setItems(flatItems);

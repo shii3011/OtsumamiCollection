@@ -4,14 +4,27 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"otsumami-server/Utility/models" // ✅ 正解
 )
 
-const appID = "1009421961217702622" // ← あなたの楽天アプリIDに置き換えてください
-
 func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+	allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
+	if allowedOrigin == "" {
+		log.Fatal("⚠️ ALLOWED_ORIGIN is not set")
+	}
+
+	w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+
+	appID := os.Getenv("RAKUTEN_API_KEY")
+	if appID == "" {
+		http.Error(w, "Rakuten API key is not set", http.StatusInternalServerError)
+		return
+	}
 
 	url := fmt.Sprintf("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=%s&keyword=チーズ+おつまみ+ランキング&format=json&hits=5", appID)
 

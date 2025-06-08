@@ -6,7 +6,8 @@ import (
 	"os"
 
 	"otsumami-server/APIClients"
-	// "otsumami-server/DBClients" // 必要になったらコメント解除
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -16,13 +17,23 @@ func main() {
 		port = "3001"
 	}
 
+	// .env.development を明示的に読み込む
+	errEnv := godotenv.Load("../../.env")
+	if errEnv != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	errEnvDev := godotenv.Load("../../.env.development")
+	if errEnvDev != nil {
+		log.Fatal("Error loading .env.development file")
+	}
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("API is alive"))
 	})
 
 	http.HandleFunc("/api/Rakuten", APIClients.GetRakutenAPI)
 	http.HandleFunc("/api/ChatGPT", APIClients.GetChatGPTAPI)
-	// http.HandleFunc("/api/Otsumamis", DBClients.GetOtsumamisHandler)
 
 	log.Println("🌐 Starting server on port " + port + "...")
 	err := http.ListenAndServe(":"+port, nil)

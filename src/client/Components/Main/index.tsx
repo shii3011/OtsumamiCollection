@@ -14,11 +14,12 @@ type Otsumami = {
 const Main: React.FC = () => {
   const [otsumamiList, setOtsumamiList] = useState<Otsumami[]>([]);
   const [loading, setLoading] = useState(true);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchOtsumami = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/Otsumamis');
+        const response = await fetch(`${baseUrl}/api/Otsumamis`);
   
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
