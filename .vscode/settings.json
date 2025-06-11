@@ -1,7 +1,27 @@
 {
+  // Go Language Server（gopls）を有効に
   "go.useLanguageServer": true,
+
+  // Goツールに渡す環境変数
   "go.toolsEnvVars": {
     "GO111MODULE": "on"
   },
-  "go.lintOnSave": "package"
+
+  // 保存時にパッケージ単位でLint
+  "go.lintOnSave": "package",
+
+  // Lintに使うツール（staticcheckは高機能な診断ツール）
+  "go.lintTool": "staticcheck",
+
+  // フォーマットツール（goimportsはimport文も整理してくれる）
+  "go.formatTool": "goimports",
+
+  // ファイル保存時に自動フォーマット実行
+  "editor.formatOnSave": true,
+
+  // ファイル保存時にgo testのカバレッジを表示しない（軽量化）
+  "go.coverOnSave": false,
+
+  // Go test 実行時に詳細出力
+  "go.testFlags": ["-v"]
 }

@@ -4,7 +4,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"otsumami-server/otsumamiSrc/APIClients"
+
+	"github.com/shii3011/OtsumamiCollection/src/server/otsumamiSrc/APIClients"
 
 	"github.com/joho/godotenv"
 )

@@ -1,14 +1,18 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
-      "name": "Debug Go API Server",
-      "type": "go",
-      "request": "launch",
-      "mode": "auto",
-      "program": "${workspaceFolder}/src/otsumami-server",
-      "envFile": "${workspaceFolder}/.env.development",
-      "showLog": true
+    "name": "Debug Go API Server",
+    "type": "go",
+    "request": "launch",
+    "mode": "auto",
+    "program": "${workspaceFolder}/src/server/main.go",
+    "envFile": "${workspaceFolder}/.env.development",
+    "showLog": true,
+    "env": {
+        "GO111MODULE": "on"
+    }
     },
     {
       "type": "node-terminal",

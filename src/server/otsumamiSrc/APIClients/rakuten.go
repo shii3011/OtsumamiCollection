@@ -3,13 +3,16 @@ package APIClients
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
-	"otsumami-server/otsumamiSrc/Utility/models" // ✅ 正解
+
+	"github.com/shii3011/OtsumamiCollection/src/server/otsumamiSrc/Utility/models" // models パッケージのパスは実際のプロジェクト構成に合わせて修正してください
 )
 
+// GetRakutenAPI は楽天APIを呼び出し、チーズおつまみランキングの情報を取得するハンドラ関数です。
+// CORS対応のため、ALLOWED_ORIGIN 環境変数を使用して、許可されたオリジンを設定します。
 func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 	allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
 	if allowedOrigin == "" {
@@ -19,6 +22,12 @@ func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+
+	// CORSプリフライト対応
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
 
 	appID := os.Getenv("RAKUTEN_API_KEY")
 	if appID == "" {
@@ -35,19 +44,20 @@ func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body) // ioutil→io
 	if err != nil {
 		http.Error(w, "レスポンス読み込み失敗", http.StatusInternalServerError)
 		return
 	}
 
-	var result models.RakutenResponse
+	result := models.RakutenResponse{} // models パッケージのパスは実際のプロジェクト構成に合わせて修正してください
 	if err := json.Unmarshal(body, &result); err != nil {
 		http.Error(w, "JSON 解析エラー: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// JSON形式でレスポンス
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	if err := json.NewEncoder(w).Encode(result); err != nil {
+		http.Error(w, "JSON エンコードエラー: "+err.Error(), http.StatusInternalServerError)
+	}
 }

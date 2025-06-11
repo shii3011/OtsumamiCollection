@@ -13,7 +13,7 @@ const RakutenSection: React.FC = () => {
     const fetchRakuten = async () => {
       try {
         // const response = await fetch(`${baseUrl}/api/Rakuten`);
-        const response = await fetch(`${baseUrl}/api/ChatGPT`);
+        const response = await fetch(`${baseUrl}/api/Rakuten`);
         const data: RakutenResponse = await response.json();
         const flatItems = data.Items.map(entry => entry.Item);
         setItems(flatItems);

@@ -1,4 +1,4 @@
-module otsumami-server
+module github.com/shii3011/OtsumamiCollection/src/server
 
 go 1.24.0
 
