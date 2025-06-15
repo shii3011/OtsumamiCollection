@@ -1,5 +1,5 @@
 import styles from './Main.module.css';
-import ContentCard from '../../pages/ContentCard';
+import ContentCard from '../../Components/ContentCard';
 import React, { useEffect, useState } from 'react';
 
 type Otsumami = {
@@ -20,11 +20,11 @@ const Main: React.FC = () => {
     const fetchOtsumami = async () => {
       try {
         const response = await fetch(`${baseUrl}/api/Otsumamis`);
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
+
         const data: Otsumami[] = await response.json();
         setOtsumamiList(data);
       } catch (error) {
@@ -33,7 +33,7 @@ const Main: React.FC = () => {
         setLoading(false);
       }
     };
-  
+
     fetchOtsumami();
   }, []);
 

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import styles from './CategorySection.module.css';
 import fly from '../../../images/Fly.jpg';
@@ -13,12 +14,19 @@ const categories = [
 ];
 
 const CategorySection: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.section}>
       <h1 className={styles.CategoryTitle}>人気のカテゴリー</h1>
       <div className={styles.grid}>
         {categories.map((cat, idx) => (
-          <div key={idx} className={styles.card}>
+          <div
+            key={idx}
+            className={styles.card}
+            onClick={() => navigate(`/category/${encodeURIComponent(cat.name)}`)}
+            style={{ cursor: 'pointer' }}
+          >
             <p className={styles.label}>{cat.name}</p>
             <img src={cat.image} alt={cat.name} className={styles.image} />
           </div>

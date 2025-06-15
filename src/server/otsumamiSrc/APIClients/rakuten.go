@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 
 	"github.com/shii3011/OtsumamiCollection/src/server/otsumamiSrc/Utility/models" // models パッケージのパスは実際のプロジェクト構成に合わせて修正してください
@@ -14,6 +15,11 @@ import (
 // GetRakutenAPI は楽天APIを呼び出し、チーズおつまみランキングの情報を取得するハンドラ関数です。
 // CORS対応のため、ALLOWED_ORIGIN 環境変数を使用して、許可されたオリジンを設定します。
 func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
+	keyword := r.URL.Query().Get("keyword")
+	if keyword == "" {
+		keyword = "チーズ おつまみ"
+	}
+
 	allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
 	if allowedOrigin == "" {
 		log.Fatal("⚠️ ALLOWED_ORIGIN is not set")
@@ -35,7 +41,10 @@ func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := fmt.Sprintf("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=%s&keyword=チーズ+おつまみ+ランキング&format=json&hits=5", appID)
+	url := fmt.Sprintf("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=%s&keyword=%s&format=json&hits=5",
+		appID,
+		url.QueryEscape(keyword),
+	)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -60,4 +69,6 @@ func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(result); err != nil {
 		http.Error(w, "JSON エンコードエラー: "+err.Error(), http.StatusInternalServerError)
 	}
+
+	log.Println("Rakuten API 呼び出し成功:", keyword)
 }

@@ -1,25 +1,26 @@
-import { BrowserRouter } from 'react-router-dom';
-import Main from './client/Components/Main';
-import Header from './client/Components/Header';
-import Footer from './client/Components/Footer';
-import styles from './App.module.css'
-import HeroSection from './client/Components/HeroSection';
-import CategorySection from './client/Components/CategorySection';
-import RakutenSection from './client/Components/RakutenSection';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './client/pages/Header';
+import Footer from './client/pages/Footer';
+import HomePage from './client/pages/HomePage'; // ホーム画面をまとめたページ
+import CategoryResultPage from './client/pages/CategoryResultPage'; // カテゴリページ（API呼び出し）
+
+import styles from './App.module.css';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <div className={styles.App}>
-        <Header/>
-        <HeroSection/>
-        <CategorySection/>
-        <Main/>
-        <RakutenSection/>
-        <Footer/>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/category/:name" element={<CategoryResultPage />} />
+        </Routes>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );
-}
-export default App;
+};
 
+export default App;
