@@ -16,9 +16,7 @@ import (
 // CORS対応のため、ALLOWED_ORIGIN 環境変数を使用して、許可されたオリジンを設定します。
 func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 	keyword := r.URL.Query().Get("keyword")
-	if keyword == "" {
-		keyword = "チーズ おつまみ"
-	}
+	keyword += " おつまみ ランキング"
 
 	allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
 	if allowedOrigin == "" {
@@ -41,7 +39,7 @@ func GetRakutenAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := fmt.Sprintf("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=%s&keyword=%s&format=json&hits=5",
+	url := fmt.Sprintf("https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId=%s&keyword=%s&format=json&hits=10&sort=-reviewAverage",
 		appID,
 		url.QueryEscape(keyword),
 	)

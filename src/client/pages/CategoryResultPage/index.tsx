@@ -28,7 +28,7 @@ const CategoryResultPage: React.FC = () => {
   if (!items.length) return <p>「{name}」に関連する商品は見つかりませんでした。</p>;
   return (
     <section>
-      <h2>「{name}」の検索結果</h2>
+      <h2>楽天市場：「{name}」の検索結果</h2>
       {loading ? (
         <p>読み込み中...</p>
       ) : (

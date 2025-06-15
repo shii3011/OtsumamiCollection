@@ -1,7 +1,8 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { RakutenResponse } from '../../Utility/RakutenResponse'; // パスは環境に応じて調整
+import styles from './ItemCarouselCard.module.css';
+import { RakutenResponse } from '../../Utility/RakutenResponse';
 
 interface Props {
   item: RakutenResponse['Items'][number]['Item'];
@@ -10,34 +11,36 @@ interface Props {
 
 const ItemCarouselCard: React.FC<Props> = ({ item, idx }) => {
   return (
-    <div key={idx} style={{ border: '1px solid #ccc', padding: '10px', width: '250px' }}>
+    <div key={idx} className={styles.card}>
       <Carousel
         showThumbs={false}
         showStatus={false}
         infiniteLoop
-        autoPlay
         interval={4000}
         showArrows
         swipeable
         emulateTouch
       >
         {item.mediumImageUrls.map((img, index) => (
-          <div
-            key={index}
-            style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          >
+          <div key={index} className={styles.imageContainer}>
             <img
               src={img.imageUrl.replace('_ex=128x128', '_ex=300x300')}
               alt={`${item.itemName}-${index}`}
-              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
             />
           </div>
         ))}
       </Carousel>
-      <h3>{item.itemName}</h3>
-      <p>💴 {item.itemPrice} 円</p>
-      <p>🏪 {item.shopName}</p>
-      <a href={item.itemUrl} target="_blank" rel="noopener noreferrer">
+      <h3 className={styles.itemName}>
+        {item.itemName.length > 50 ? item.itemName.slice(0, 50) + '...' : item.itemName}
+      </h3>
+      <p className={styles.price}>💴 {item.itemPrice.toLocaleString()} 円</p>
+      <p className={styles.shopName}>🏪 {item.shopName}</p>
+      <a
+        href={item.itemUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.link}
+      >
         🔗 商品ページへ
       </a>
     </div>
