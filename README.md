@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# 🍼 OtsumamiCollection
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+OtsumamiCollection は、おつまみに特化した商品を、ChatGPT を用いたレコメンドロジックと楽天商品APIのレスポンスを連携させ、React + Go でモダンに実装したフルスタックアプリです。
 
-## Available Scripts
+ブラウザ上で商品を検索するだけで、大手ECサイトの価格比較やランキング情報を瞬時に取得。現実的なWeb開発に準じた技術選定と実装力をアピールできるよう配慮した構成になっています。
 
-In the project directory, you can run:
+---
 
-### `npm start`
+##　構成
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+OtsumamiCollection/
+├── client/               # Reactフロントエンド
+│   └── Components/...    # UI部品
+├── server/               # Goバックエンド
+│   ├── main.go           # エントリーポイント
+│   └── otsumamiSrc/
+│       ├── APIClients/  # ChatGPT / 楽天APIなどを呼び出す
+│       └── Utility/     # レスポンスモデルの定義
+├── go.mod
+├── .env.development
+├── .gitignore
+└── README.md
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ⚡️ 使用技術
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🚀 Frontend
 
-### `npm run build`
+* React 18
+* TypeScript
+* CSS Modules
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🛠️ Backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Go 1.24
+* RESTful API
+* OpenAI ChatGPT API
+* Rakuten Ichiba API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 🛡️ Dev Tools
 
-### `npm run eject`
+* Visual Studio Code
+* GitHub Actions (CI/CD, future integration planned)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📅 開発の動機
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* 実際の商品情報をAPIで取得し、ChatGPTを用いてユーザーにレコメンド
+* ReactとGoを組み合わせた現代的なSPA + API Server構成
+* 技術適用の素早さと準算能力を聴こえるアピール用に適用
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 💡 使用手順
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 1. 環境変数の設定
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`.env.development` に以下を設定:
 
-### Code Splitting
+```env
+REACT_APP_API_BASE_URL=http://localhost:3001
+ALLOWED_ORIGIN=http://localhost:3000
+OPENAI_API_KEY=your-openai-key
+RAKUTEN_API_KEY=your-rakuten-key
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 2. クライアント側 (React)
 
-### Analyzing the Bundle Size
+```bash
+cd src/client
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 3. サーバー側 (Go)
 
-### Making a Progressive Web App
+```bash
+cd src/server
+go run main.go
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🔍 実装API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Endpoint       | 概要                          |
+| -------------- | --------------------------- |
+| `/api/Rakuten` | 楽天APIを呼び出し商品情報を取得           |
+| `/api/ChatGPT` | ChatGPT APIを用いてレコメンドJSONを生成 |
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📚 アピール点
 
-### `npm run build` fails to minify
+* ChatGPTを用いた商品レコメンドエンジンをGoで実装
+* 多様なAPI管理をコードで分離
+* モジュール分割や開発環境に対応
+* VSCodeでDelveデバッグ + launch.json 設定
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## ✉️ 連絡先
+
+作成者: [@shii3011](https://github.com/shii3011)
+ご意見やIssue / PR の提出は歓迎します！
+
+---
+
+本プロジェクトは、SPA、API、サードパーティクルといった現代のWeb開発技術に対応し、自らの技術選定能力と実装力をワンステップで行動できることを意識して作成しています。
